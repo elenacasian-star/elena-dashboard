@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elena's Life Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ AUTH SCREEN ═══════════════════════════════════ -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-mark">✦</div>
+        <h1 class="auth-title">Elena's Dashboard</h1>
+        <p class="auth-subtitle">Your personal life management system</p>
+      </div>
+
+      <!-- First-time setup -->
+      <div id="setup-form" class="auth-form hidden">
+        <h2 class="form-heading">Welcome, Elena ✦</h2>
+        <p class="form-desc">Create your password to get started. Recovery emails go to elenacasian@gmail.com.</p>
+        <input type="password" id="setup-password" class="auth-input" placeholder="Create a password" />
+        <input type="password" id="setup-confirm" class="auth-input" placeholder="Confirm password" />
+        <div id="setup-error" class="auth-error hidden"></div>
+        <button class="btn btn-primary btn-full" onclick="handleSetup()">Create Account</button>
+      </div>
+
+      <!-- Login -->
+      <div id="login-form" class="auth-form hidden">
+        <h2 class="form-heading">Welcome back, Elena</h2>
+        <input type="password" id="login-password" class="auth-input" placeholder="Enter your password"
+               onkeydown="if(event.key==='Enter') handleLogin()" />
+        <div id="login-error" class="auth-error hidden">Incorrect password. Please try again.</div>
+        <button class="btn btn-primary btn-full" onclick="handleLogin()">Enter</button>
+        <button class="btn-link" onclick="handleForgotPassword()">Forgot password?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ MAIN APP ═══════════════════════════════════ -->
+  <div id="app" class="app hidden">
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">✦</span>
+        <span class="brand-name">Elena's Dashboard</span>
+      </div>
+
+      <ul class="nav-list">
+        <li>
+          <a class="nav-item active" data-view="dashboard">
+            <span class="nav-icon">⊞</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="journal">
+            <span class="nav-icon">✍</span>
+            <span class="nav-label">Journal</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="story-ideas">
+            <span class="nav-icon">💡</span>
+            <span class="nav-label">Story Ideas</span>
+          </a>
+        </li>
+        <li class="nav-divider"></li>
+        <li>
+          <a class="nav-item" data-view="zine">
+            <span class="nav-icon">📖</span>
+            <span class="nav-label">Fragments Zine</span>
+            <span class="nav-dot" id="dot-zine"></span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="spanish">
+            <span class="nav-icon">🗣</span>
+            <span class="nav-label">Spanish</span>
+            <span class="nav-dot" id="dot-spanish"></span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="meals">
+            <span class="nav-icon">🍽</span>
+            <span class="nav-label">Meal Planner</span>
+            <span class="nav-dot" id="dot-meals"></span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="health">
+            <span class="nav-icon">💪</span>
+            <span class="nav-label">Health & Fitness</span>
+            <span class="nav-dot" id="dot-health"></span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-view="calendar">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">Family Calendar</span>
+            <span class="nav-dot" id="dot-calendar"></span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <a class="nav-item" data-view="settings">
+          <span class="nav-icon">⚙</span>
+          <span class="nav-label">Settings</span>
+        </a>
+        <button class="btn-logout" onclick="handleLogout()">Sign out</button>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2 id="page-title">Dashboard</h2>
+        </div>
+        <div class="topbar-right">
+          <span id="current-date" class="topbar-date"></span>
+          <button class="btn btn-primary btn-sm" onclick="navigateTo('journal')">+ New Entry</button>
+        </div>
+      </header>
+
+      <main id="view-container" class="view-container"></main>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ MODAL ═══════════════════════════════════ -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+    <div id="modal" class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
